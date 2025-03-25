@@ -39,13 +39,7 @@ namespace HttpClientApi.Controllers
 					});
 				//Caso seja retornado alguma exceção não esperada, retorno um BadRequest com
 				//a mensagem da própria exceção
-				return BadRequest(new ProblemDetails
-				{
-					Title = "Algo inesperado aconteceu",
-					Status = StatusCodes.Status400BadRequest,
-					Type = "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status/400",
-					Detail = ex.Message
-				});
+				return BadRequest(ex.Message);
 			}
 		}
 		[HttpGet("{id}")]
@@ -67,13 +61,7 @@ namespace HttpClientApi.Controllers
 						Status = StatusCodes.Status404NotFound,
 						Type = "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status/404"
 					});
-				return BadRequest(new ProblemDetails
-				{
-					Title = "Algo inesperado aconteceu",
-					Status = StatusCodes.Status400BadRequest,
-					Type = "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status/400",
-					Detail = ex.Message
-				});
+				return BadRequest(ex.Message);
 			}
 		}
 		[HttpPost]
@@ -90,12 +78,7 @@ namespace HttpClientApi.Controllers
 			}
 			catch (HttpRequestException ex)
 			{
-				return BadRequest(new ProblemDetails {
-					Title = "Algo inesperado aconteceu",
-					Status = StatusCodes.Status400BadRequest,
-					Type = "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status/400",
-					Detail = ex.Message
-				});
+				return BadRequest(ex.Message);
 			}
 		}
 		[HttpPut("{id}")]
@@ -117,13 +100,7 @@ namespace HttpClientApi.Controllers
 						Status = StatusCodes.Status404NotFound,
 						Type = "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status/404"
 					});
-				return BadRequest(new ProblemDetails
-				{
-					Title = "Algo inesperado aconteceu",
-					Status = StatusCodes.Status400BadRequest,
-					Type = "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status/400",
-					Detail = ex.Message
-				});
+				return BadRequest(ex.Message);
 			}
 		}
 		[HttpPatch("{id}")]
@@ -145,13 +122,7 @@ namespace HttpClientApi.Controllers
 						Status = StatusCodes.Status404NotFound,
 						Type = "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status/404"
 					});
-				return BadRequest(new ProblemDetails
-				{
-					Title = "Algo inesperado aconteceu",
-					Status = StatusCodes.Status400BadRequest,
-					Type = "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status/400",
-					Detail = ex.Message
-				});
+				return BadRequest(ex.Message);
 			}
 		}
 
@@ -177,13 +148,7 @@ namespace HttpClientApi.Controllers
 						Status = StatusCodes.Status404NotFound,
 						Type = "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status/404"
 					});
-				return BadRequest(new ProblemDetails
-				{
-					Title = "Algo inesperado aconteceu",
-					Status = StatusCodes.Status400BadRequest,
-					Type = "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status/400",
-					Detail = ex.Message
-				});
+				return BadRequest(ex.Message); ;
 			}
 		}
 
