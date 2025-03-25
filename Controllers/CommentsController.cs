@@ -29,8 +29,20 @@ namespace HttpClientApi.Controllers
 			catch(HttpRequestException ex)
 			{
 				if (ex is { StatusCode: HttpStatusCode.NotFound })
-					return NotFound("Nenhum comentário foi encontrado");
-				return BadRequest(ex.Message);
+					return NotFound(new ProblemDetails
+					{
+						Title = "Nenhum comentário foi encontrado",
+						Detail = "Não foi encontrado nenhum comentário na base de dados.",
+						Status = StatusCodes.Status404NotFound,
+						Type = "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status/404"
+					});
+				return BadRequest(new ProblemDetails
+				{
+					Title = "Algo inesperado aconteceu",
+					Status = StatusCodes.Status400BadRequest,
+					Type = "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status/400",
+					Detail = ex.Message
+				});
 			}
 		}
 		[HttpGet("{id}")]
@@ -45,8 +57,20 @@ namespace HttpClientApi.Controllers
 			catch (HttpRequestException ex)
 			{
 				if (ex is { StatusCode: HttpStatusCode.NotFound })
-					return NotFound($"Comentário com id {id} não foi encontrado");
-				return BadRequest(ex.Message);
+					return NotFound(new ProblemDetails
+					{
+						Title = "Comentário não foi encontrada.",
+						Detail = "Não foi encontrado um comentário com id " + id,
+						Status = StatusCodes.Status404NotFound,
+						Type = "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status/404"
+					});
+				return BadRequest(new ProblemDetails
+				{
+					Title = "Algo inesperado aconteceu",
+					Status = StatusCodes.Status400BadRequest,
+					Type = "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status/400",
+					Detail = ex.Message
+				});
 			}
 		}
 
@@ -64,8 +88,20 @@ namespace HttpClientApi.Controllers
 			catch(HttpRequestException ex)
 			{
 				if (ex is { StatusCode: HttpStatusCode.NotFound })
-					return NotFound($"A publicação com id {postId} não foi encontrado.");
-				return BadRequest(ex.Message);
+					return NotFound(new ProblemDetails
+					{
+						Title = "Publicação não foi encontrada.",
+						Detail = "Não foi encontrado uma publicação com id " + postId,
+						Status = StatusCodes.Status404NotFound,
+						Type = "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status/404"
+					});
+				return BadRequest(new ProblemDetails
+				{
+					Title = "Algo inesperado aconteceu",
+					Status = StatusCodes.Status400BadRequest,
+					Type = "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status/400",
+					Detail = ex.Message
+				});
 			}
 		}
 
@@ -81,8 +117,20 @@ namespace HttpClientApi.Controllers
 			catch(HttpRequestException ex)
 			{
 				if (ex is { StatusCode: HttpStatusCode.NotFound })
-					return NotFound($"O comentário com id {id} não foi encontrado");
-				return BadRequest(ex.Message);
+					return NotFound(new ProblemDetails
+					{
+						Title = "Comentário não foi encontrada.",
+						Detail = "Não foi encontrado um comentário com id " + id,
+						Status = StatusCodes.Status404NotFound,
+						Type = "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status/404"
+					});
+				return BadRequest(new ProblemDetails
+				{
+					Title = "Algo inesperado aconteceu",
+					Status = StatusCodes.Status400BadRequest,
+					Type = "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status/400",
+					Detail = ex.Message
+				});
 			}
 		}
 
@@ -98,8 +146,20 @@ namespace HttpClientApi.Controllers
 			catch (HttpRequestException ex)
 			{
 				if (ex is { StatusCode: HttpStatusCode.NotFound })
-					return NotFound($"O comentário com id {id} não foi encontrado.");
-				return BadRequest(ex.Message);
+					return NotFound(new ProblemDetails
+					{
+						Title = "Comentário não foi encontrada.",
+						Detail = "Não foi encontrado um comentário com id " + id,
+						Status = StatusCodes.Status404NotFound,
+						Type = "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status/404"
+					});
+				return BadRequest(new ProblemDetails
+				{
+					Title = "Algo inesperado aconteceu",
+					Status = StatusCodes.Status400BadRequest,
+					Type = "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status/400",
+					Detail = ex.Message
+				});
 			}
 		}
 

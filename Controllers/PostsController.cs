@@ -28,12 +28,24 @@ namespace HttpClientApi.Controllers
 			}
 			catch (HttpRequestException ex)
 			{
-				//Verificando se o código da exceção HTTP é 404 para retornar NotFound, que retorna o código 404.
-				if (ex is { StatusCode: HttpStatusCode.NotFound }) 
-					return NotFound("Não foi encontrado nenhuma publicação");
-				//Caso seja retornado alguma exceção não esperada, retorno um BadRequest com a mensagem da própria
-				//exceção
-				return BadRequest(ex.Message);
+				//Verificando se o código da exceção HTTP é 404 para retornar NotFound
+				if (ex is { StatusCode: HttpStatusCode.NotFound })
+					return NotFound(new ProblemDetails
+					{
+						Title = "Nenhuma publicação foi encontrado",
+						Detail = "Não foi encontrado nenhuma publicação na base de dados.",
+						Status = StatusCodes.Status404NotFound,
+						Type = "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status/404"
+					});
+				//Caso seja retornado alguma exceção não esperada, retorno um BadRequest com
+				//a mensagem da própria exceção
+				return BadRequest(new ProblemDetails
+				{
+					Title = "Algo inesperado aconteceu",
+					Status = StatusCodes.Status400BadRequest,
+					Type = "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status/400",
+					Detail = ex.Message
+				});
 			}
 		}
 		[HttpGet("{id}")]
@@ -47,9 +59,21 @@ namespace HttpClientApi.Controllers
 			}
 			catch (HttpRequestException ex)
 			{
-				if (ex is { StatusCode: HttpStatusCode.NotFound }) 
-					return NotFound($"Não foi encontrado uma publicação com o id: {id}");
-				return BadRequest(ex.Message);
+				if (ex is { StatusCode: HttpStatusCode.NotFound })
+					return NotFound(new ProblemDetails
+					{
+						Title = "Publicação não foi encontrada.",
+						Detail = "Não foi encontrado uma publicação com id " + id,
+						Status = StatusCodes.Status404NotFound,
+						Type = "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status/404"
+					});
+				return BadRequest(new ProblemDetails
+				{
+					Title = "Algo inesperado aconteceu",
+					Status = StatusCodes.Status400BadRequest,
+					Type = "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status/400",
+					Detail = ex.Message
+				});
 			}
 		}
 		[HttpPost]
@@ -61,11 +85,17 @@ namespace HttpClientApi.Controllers
 				Post resposta = await _postService.FazerUmPost(post);
 				//Utilizo o id recebido para gerar a url apontando para o post criado.
 				//CreatedAtAction retorna o código 201, informando que um novo dado foi criado.
-				return CreatedAtAction(nameof(BuscarPostPorId), new {id = resposta.Id},resposta + "\nCriado com sucesso");
+				return CreatedAtAction(nameof(BuscarPostPorId), new {id = resposta.Id},
+					resposta + "\nCriado com sucesso");
 			}
 			catch (HttpRequestException ex)
 			{
-				return BadRequest(ex.Message);
+				return BadRequest(new ProblemDetails {
+					Title = "Algo inesperado aconteceu",
+					Status = StatusCodes.Status400BadRequest,
+					Type = "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status/400",
+					Detail = ex.Message
+				});
 			}
 		}
 		[HttpPut("{id}")]
@@ -80,8 +110,20 @@ namespace HttpClientApi.Controllers
 			catch(HttpRequestException ex)
 			{
 				if(ex is { StatusCode: HttpStatusCode.NotFound })
-					return NotFound($"Não foi encontrado uma publicação com id: {id}");
-				return BadRequest(ex);
+					return NotFound(new ProblemDetails
+					{
+						Title = "Publicação não foi encontrada.",
+						Detail = "Não foi encontrado uma publicação com id " + id,
+						Status = StatusCodes.Status404NotFound,
+						Type = "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status/404"
+					});
+				return BadRequest(new ProblemDetails
+				{
+					Title = "Algo inesperado aconteceu",
+					Status = StatusCodes.Status400BadRequest,
+					Type = "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status/400",
+					Detail = ex.Message
+				});
 			}
 		}
 		[HttpPatch("{id}")]
@@ -95,8 +137,21 @@ namespace HttpClientApi.Controllers
 			}
 			catch(HttpRequestException ex)
 			{
-				if (ex is { StatusCode: HttpStatusCode.NotFound }) return NotFound(ex.Message);
-				return BadRequest(ex.Message);
+				if (ex is { StatusCode: HttpStatusCode.NotFound })
+					return NotFound(new ProblemDetails
+					{
+						Title = "Publicação não foi encontrada.",
+						Detail = "Não foi encontrado uma publicação com id " + id,
+						Status = StatusCodes.Status404NotFound,
+						Type = "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status/404"
+					});
+				return BadRequest(new ProblemDetails
+				{
+					Title = "Algo inesperado aconteceu",
+					Status = StatusCodes.Status400BadRequest,
+					Type = "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status/400",
+					Detail = ex.Message
+				});
 			}
 		}
 
@@ -108,15 +163,27 @@ namespace HttpClientApi.Controllers
 			{ 
 				await _postService.RemoverPost(id);
 				//A api não retorna um corpo, por isso eu retorno NoContent.
-				//NoContent informa o código 404, significando que a operação foi um sucesso
+				//NoContent informa o código 204, significando que a operação foi um sucesso
 				//e não há conteúdo retornado.
 				return NoContent();
 			}
 			catch(HttpRequestException ex)
 			{
-				if (ex is { StatusCode: HttpStatusCode.NotFound}) 
-					return NotFound($"A publicação com o id {id} não existe.");
-				return BadRequest(ex.Message);
+				if (ex is { StatusCode: HttpStatusCode.NotFound})
+					return NotFound(new ProblemDetails
+					{
+						Title = "Publicação não foi encontrada.",
+						Detail = "Não foi encontrado uma publicação com id " + id,
+						Status = StatusCodes.Status404NotFound,
+						Type = "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status/404"
+					});
+				return BadRequest(new ProblemDetails
+				{
+					Title = "Algo inesperado aconteceu",
+					Status = StatusCodes.Status400BadRequest,
+					Type = "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status/400",
+					Detail = ex.Message
+				});
 			}
 		}
 
