@@ -53,7 +53,7 @@ namespace HttpClientApi.Controllers
 				if (ex is { StatusCode: HttpStatusCode.NotFound })
 					return NotFound(new ProblemDetails
 					{
-						Title = "Comentário não foi encontrada.",
+						Title = "Comentário não foi encontrado.",
 						Detail = "Não foi encontrado um comentário com id " + id,
 						Status = StatusCodes.Status404NotFound,
 						Type = "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status/404"
@@ -78,7 +78,7 @@ namespace HttpClientApi.Controllers
 				if (ex is { StatusCode: HttpStatusCode.NotFound })
 					return NotFound(new ProblemDetails
 					{
-						Title = "Publicação não foi encontrada.",
+						Title = "Publicação não foi encontrado.",
 						Detail = "Não foi encontrado uma publicação com id " + postId,
 						Status = StatusCodes.Status404NotFound,
 						Type = "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status/404"
@@ -101,7 +101,7 @@ namespace HttpClientApi.Controllers
 				if (ex is { StatusCode: HttpStatusCode.NotFound })
 					return NotFound(new ProblemDetails
 					{
-						Title = "Comentário não foi encontrada.",
+						Title = "Comentário não foi encontrado.",
 						Detail = "Não foi encontrado um comentário com id " + id,
 						Status = StatusCodes.Status404NotFound,
 						Type = "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status/404"
@@ -124,7 +124,7 @@ namespace HttpClientApi.Controllers
 				if (ex is { StatusCode: HttpStatusCode.NotFound })
 					return NotFound(new ProblemDetails
 					{
-						Title = "Comentário não foi encontrada.",
+						Title = "Comentário não foi encontrado.",
 						Detail = "Não foi encontrado um comentário com id " + id,
 						Status = StatusCodes.Status404NotFound,
 						Type = "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status/404"
