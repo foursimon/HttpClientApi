@@ -5,11 +5,13 @@ using Microsoft.AspNetCore.Http;
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using HttpClientApi.Models.DTOs.PatchDto;
+using Newtonsoft.Json;
 
 namespace HttpClientApi.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
+	[ApiKey]
 	public class PostsController : ControllerBase
 	{
 		private readonly IPostService _postService;
@@ -24,7 +26,7 @@ namespace HttpClientApi.Controllers
 			try
 			{
 				var resposta = await _postService.BuscarTodosPosts();
-				return Ok(resposta);
+				return Ok(JsonConvert.SerializeObject(resposta));
 			}
 			catch (HttpRequestException ex)
 			{
@@ -73,8 +75,7 @@ namespace HttpClientApi.Controllers
 				Post resposta = await _postService.FazerUmPost(post);
 				//Utilizo o id recebido para gerar a url apontando para o post criado.
 				//CreatedAtAction retorna o código 201, informando que um novo dado foi criado.
-				return CreatedAtAction(nameof(BuscarPostPorId), new {id = resposta.Id},
-					resposta + "\nCriado com sucesso");
+				return CreatedAtAction(nameof(BuscarPostPorId), new {id = resposta.Id}, resposta);
 			}
 			catch (HttpRequestException ex)
 			{

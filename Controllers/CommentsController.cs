@@ -69,8 +69,7 @@ namespace HttpClientApi.Controllers
 			try
 			{
 				Comment resposta = await _commentService.FazerUmComentario(postId, comentario);
-				return CreatedAtAction(nameof(BuscarComentarioPorId), new { id = resposta.Id },
-					resposta + "Comentário realizado com sucesso");
+				return CreatedAtAction(nameof(BuscarComentarioPorId), new { id = resposta.Id }, resposta);
 
 			}
 			catch(HttpRequestException ex)

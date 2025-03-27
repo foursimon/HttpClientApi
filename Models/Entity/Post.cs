@@ -9,7 +9,7 @@
 
 		public override string ToString()
 		{
-			return $"Id do Post: {Id}\nId do usuário: {UserId}\nTítulo: {Title}\nBody: {Body}";
+			return $"id do Post: {Id}\nid do usuário: {UserId}\ntítulo: {Title}\nbody: {Body}";
 		}
 	}
 }
