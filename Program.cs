@@ -24,6 +24,8 @@ namespace HttpClientApi
 					policy.WithOrigins("http://localhost:5173");
 					//Especificando quais headers dessas origens serão aceitos
 					policy.WithHeaders("content-type", "api-key");
+					//Especificando quais métodos são permitidos dessa origem
+					policy.WithMethods("PUT", "POST", "GET", "PATCH", "DELETE");
 				});
 			});
 			builder.Services.AddAutoMapper(typeof(Program));
