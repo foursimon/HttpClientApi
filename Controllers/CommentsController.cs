@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HttpClientApi.Controllers
 {
 	[Route("api/[controller]")]
+	[ApiKey]
 	[ApiController]
 	public class CommentsController : ControllerBase
 	{
