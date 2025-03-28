@@ -29,7 +29,7 @@ de cabeçalho são permitidos dessa origem.</p>
 <img src="./Assets/sucesso.png" width="500px">
 <br/>
 <h3>Política de Cors</h3>
-<img src="./Assets/politica.png" width="500px">
+<img src="./Assets/politicaCors.png" width="500px">
 <br/>
 <h3>Validação de chave</h3>
 <img src="./Assets/chave.png" width="500px">
